@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client portal | Capital Sites</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F0EDE5; --paper-2:#E9E5DB; --ink:#16140F;
+    --ink-dim:rgba(22,20,15,.45); --acc:#FF4D00; --line:rgba(22,20,15,.15);
+    --font-d:'Clash Display',Impact,sans-serif; --font-b:'General Sans',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:var(--font-b);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100svh}
+  ::selection{background:var(--acc);color:var(--paper)}
+  a{color:inherit;text-decoration:none}
+  .df{font-family:var(--font-d)}
+  header{border-bottom:1px solid var(--line)}
+  .head-in{max-width:880px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:20px 24px;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase}
+  .head-brand{font-family:var(--font-d);font-weight:600;font-size:1rem;letter-spacing:.04em}
+  .head-links{display:flex;gap:2.5em;align-items:center;color:var(--ink-dim)}
+  .head-links a:hover{color:var(--ink)}
+  .head-links button{background:none;border:none;font:inherit;color:inherit;cursor:pointer;letter-spacing:inherit;text-transform:inherit}
+  .head-links button:hover{color:var(--acc)}
+  main{max-width:880px;margin:0 auto;padding:56px 24px 96px}
+  h1{font-family:var(--font-d);font-weight:600;text-transform:uppercase;font-size:clamp(2rem,6vw,3.4rem);line-height:.95;letter-spacing:-.02em;margin-bottom:10px}
+  h1 .acc{color:var(--acc)}
+  .sub{color:var(--ink-dim);max-width:46ch;margin-bottom:40px}
+  .sub b{color:var(--ink);font-weight:600}
+  .card{border:1px solid var(--line);padding:clamp(24px,4vw,40px);max-width:460px}
+  .tabs{display:flex;gap:0;border:1px solid var(--line);margin-bottom:26px}
+  .tabs button{flex:1;background:none;border:none;font-family:var(--font-b);font-weight:600;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;padding:12px;cursor:pointer;color:var(--ink-dim)}
+  .tabs button.on{background:var(--ink);color:var(--paper)}
+  label{display:block;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim);margin:18px 0 6px}
+  input,textarea{width:100%;background:#fff;border:1px solid var(--line);padding:12px 14px;font-family:var(--font-b);font-size:.95rem;color:var(--ink);outline:none;transition:border-color .2s}
+  input:focus,textarea:focus{border-color:var(--acc)}
+  textarea{min-height:110px;resize:vertical}
+  .btn{margin-top:24px;width:100%;background:var(--ink);color:var(--paper);border:none;font-family:var(--font-b);font-weight:600;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;padding:16px;cursor:pointer;transition:background .2s}
+  .btn:hover{background:var(--acc)}
+  .btn[disabled]{opacity:.5;cursor:wait}
+  .msg{margin-top:16px;font-size:.85rem;padding:12px 14px;display:none}
+  .msg.err{display:block;background:#FBE9E4;color:#8A2B0D;border:1px solid #EFC4B6}
+  .msg.ok{display:block;background:#EAF0E2;color:#3E5622;border:1px solid #CBD8B8}
+  .req-list{margin-top:40px}
+  .req{border:1px solid var(--line);padding:18px 20px;margin-bottom:12px;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:start;background:#fff}
+  .req .meta{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:6px}
+  .req .meta b{color:var(--ink)}
+  .req p{font-size:.95rem;white-space:pre-wrap}
+  .chip{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;padding:5px 10px;border-radius:99px;white-space:nowrap}
+  .chip.open{background:var(--acc);color:#fff}
+  .chip.in_progress{background:var(--ink);color:var(--paper)}
+  .chip.done{background:var(--paper-2);color:var(--ink-dim);border:1px solid var(--line)}
+  .admin-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+  .admin-actions button{background:none;border:1px solid var(--line);font-family:var(--font-b);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:5px 10px;border-radius:99px;cursor:pointer;color:var(--ink-dim)}
+  .admin-actions button:hover{border-color:var(--acc);color:var(--acc)}
+  .sec-label{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dim);margin:48px 0 18px;display:flex;align-items:center;gap:14px}
+  .sec-label::before{content:"";width:40px;height:1px;background:var(--acc)}
+  .empty{color:var(--ink-dim);font-size:.9rem;border:1px dashed var(--line);padding:24px;text-align:center}
+  .hidden{display:none!important}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-in">
+    <a class="head-brand df" href="index.html">Capital Sites</a>
+    <nav class="head-links">
+      <a href="index.html">← Back to site</a>
+      <button id="signout" class="hidden">Sign out</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section id="auth">
+    <h1>Client<br>portal<span class="acc">.</span></h1>
+    <p class="sub">Log in to send edit requests and track their status. New client? Create your account with the email you gave me and you're in.</p>
+    <div class="card">
+      <div class="tabs">
+        <button id="tab-in" class="on">Sign in</button>
+        <button id="tab-up">Create account</button>
+      </div>
+      <form id="form-auth">
+        <div id="f-business" class="hidden">
+          <label for="business">Business name</label>
+          <input id="business" type="text" autocomplete="organization" placeholder="e.g. The Meadows Barbers">
+        </div>
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="email" required placeholder="you@yourbusiness.co.uk">
+        <label for="password">Password</label>
+        <input id="password" type="password" autocomplete="current-password" required minlength="8" placeholder="At least 8 characters">
+        <button class="btn" id="submit" type="submit">Sign in</button>
+        <div class="msg" id="auth-msg"></div>
+      </form>
+    </div>
+  </section>
+
+  <section id="app" class="hidden">
+    <h1 id="app-title">Your site<span class="acc">.</span></h1>
+    <p class="sub" id="app-sub">Need something changed? Prices, hours, photos, words. Send it here. <b>48 hours on Essential, same day on Plus.</b></p>
+
+    <div id="client-form" class="card">
+      <form id="form-req">
+        <label for="page">Which page? (optional)</label>
+        <input id="page" type="text" placeholder="e.g. Homepage, Menu, Contact">
+        <label for="message">What needs changing?</label>
+        <textarea id="message" required placeholder="e.g. New opening hours from Monday: 9–6 Tue–Sat, closed Sun/Mon"></textarea>
+        <button class="btn" type="submit">Send request</button>
+        <div class="msg" id="req-msg"></div>
+      </form>
+    </div>
+
+    <p class="sec-label" id="list-label">Your requests</p>
+    <div class="req-list" id="list"></div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+(function(){
+  var sb = supabase.createClient(
+    'https://dkylxxhhqgdnmpsjvain.supabase.co',
+    'sb_publishable_eFTPgmWvsc7SbNX_ZoFhAw_8iVikrrW'
+  );
+
+  var mode = 'in', profile = null;
+  var $ = function(id){ return document.getElementById(id); };
+  function show(el){ el.classList.remove('hidden'); }
+  function hide(el){ el.classList.add('hidden'); }
+  function msg(el, text, ok){ el.textContent = text; el.className = 'msg ' + (ok ? 'ok' : 'err'); }
+  function clearMsg(el){ el.textContent=''; el.className='msg'; }
+  function esc(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+
+  $('tab-in').onclick = function(){ mode='in'; this.classList.add('on'); $('tab-up').classList.remove('on'); hide($('f-business')); $('submit').textContent='Sign in'; clearMsg($('auth-msg')); };
+  $('tab-up').onclick = function(){ mode='up'; this.classList.add('on'); $('tab-in').classList.remove('on'); show($('f-business')); $('submit').textContent='Create account'; clearMsg($('auth-msg')); };
+
+  $('form-auth').onsubmit = async function(e){
+    e.preventDefault();
+    var btn=$('submit'); btn.disabled=true; clearMsg($('auth-msg'));
+    var email=$('email').value.trim(), pw=$('password').value;
+    try{
+      if(mode==='up'){
+        var r = await sb.auth.signUp({ email:email, password:pw, options:{ data:{ business_name: $('business').value.trim() } } });
+        if(r.error) throw r.error;
+        if(r.data.session){ await enter(); }
+        else msg($('auth-msg'),'Account created. Check your email to confirm, then sign in.',true);
+      } else {
+        var r2 = await sb.auth.signInWithPassword({ email:email, password:pw });
+        if(r2.error) throw r2.error;
+        await enter();
+      }
+    }catch(err){ msg($('auth-msg'), err.message || 'Something went wrong.', false); }
+    btn.disabled=false;
+  };
+
+  $('signout').onclick = async function(){ await sb.auth.signOut(); location.reload(); };
+
+  async function enter(){
+    var s = await sb.auth.getSession();
+    if(!s.data.session) return;
+    var uid = s.data.session.user.id;
+    var p = await sb.from('cs_profiles').select('*').eq('id', uid).single();
+    profile = p.data;
+    hide($('auth')); show($('app')); show($('signout'));
+    if(profile && profile.role==='admin'){
+      $('app-title').innerHTML='All requests<span class="acc">.</span>';
+      $('app-sub').innerHTML='Team view. Every client request, newest first.';
+      hide($('client-form'));
+      $('list-label').textContent='Every request';
+    } else {
+      var biz = profile && profile.business_name ? profile.business_name : 'Your site';
+      $('app-title').innerHTML = esc(biz)+'<span class="acc">.</span>';
+    }
+    await loadRequests();
+  }
+
+  async function loadRequests(){
+    var r = await sb.from('cs_requests').select('*').order('created_at',{ascending:false});
+    var list = $('list'); list.innerHTML='';
+    if(r.error){ list.innerHTML='<div class="empty">Could not load requests: '+esc(r.error.message)+'</div>'; return; }
+    if(!r.data.length){ list.innerHTML='<div class="empty">No requests yet.'+(profile&&profile.role==='admin'?'':' Send your first one above.')+'</div>'; return; }
+
+    var profs = {};
+    if(profile && profile.role==='admin'){
+      var pr = await sb.from('cs_profiles').select('id,business_name,email');
+      (pr.data||[]).forEach(function(p){ profs[p.id]=p; });
+    }
+    var labels={open:'Open',in_progress:'In progress',done:'Done'};
+    r.data.forEach(function(req){
+      var who = '';
+      if(profile && profile.role==='admin'){
+        var p = profs[req.user_id];
+        who = p ? ('<b>'+esc(p.business_name||p.email)+'</b> · ') : '';
+      }
+      var d = new Date(req.created_at);
+      var date = d.toLocaleDateString('en-GB',{day:'numeric',month:'short'}) + ', ' + d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+      var pageTag = req.page ? (esc(req.page)+' · ') : '';
+      var right = '<span class="chip '+req.status+'">'+labels[req.status]+'</span>';
+      if(profile && profile.role==='admin'){
+        right += '<div class="admin-actions" style="margin-top:8px">'+
+          (req.status!=='in_progress'?'<button data-id="'+req.id+'" data-s="in_progress">Start</button>':'')+
+          (req.status!=='done'?'<button data-id="'+req.id+'" data-s="done">Done</button>':'')+
+          (req.status!=='open'?'<button data-id="'+req.id+'" data-s="open">Reopen</button>':'')+
+        '</div>';
+      }
+      var el=document.createElement('div'); el.className='req';
+      el.innerHTML='<div><div class="meta">'+who+pageTag+date+'</div><p>'+esc(req.message)+'</p></div><div style="text-align:right">'+right+'</div>';
+      list.appendChild(el);
+    });
+    list.querySelectorAll('.admin-actions button').forEach(function(b){
+      b.onclick=async function(){
+        await sb.from('cs_requests').update({status:b.getAttribute('data-s')}).eq('id',b.getAttribute('data-id'));
+        loadRequests();
+      };
+    });
+  }
+
+  $('form-req').onsubmit = async function(e){
+    e.preventDefault(); clearMsg($('req-msg'));
+    var s = await sb.auth.getSession(); if(!s.data.session) return;
+    var r = await sb.from('cs_requests').insert({
+      user_id: s.data.session.user.id,
+      message: $('message').value.trim(),
+      page: $('page').value.trim() || null
+    });
+    if(r.error){ msg($('req-msg'), r.error.message, false); return; }
+    $('message').value=''; $('page').value='';
+    msg($('req-msg'),'Sent.',true);
+    loadRequests();
+  };
+
+  enter();
+})();
+</script>
+</body>
+</html>
