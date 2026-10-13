@@ -81,7 +81,7 @@
     padding:22px 4vw;
     font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
   }
-  .head-brand{font-family:var(--font-d);font-weight:600;font-size:1rem;letter-spacing:.04em}
+  .head-brand{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-d);font-weight:600;font-size:1rem;letter-spacing:.04em}
   .head-meta{display:flex;gap:3.5em;align-items:center}
   .head-meta .coords{opacity:.6}
   .head-cta{position:relative;padding-bottom:3px}
@@ -402,6 +402,9 @@
     .grain,.scroll-cue i{animation:none}
   }
 </style>
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 </head>
 <body>
 
@@ -449,7 +452,7 @@
 
 <header>
   <div class="head-in">
-    <a class="head-brand df" href="#top" data-hover>Capital Sites</a>
+    <a class="head-brand df" href="#top" data-hover><img src="/icon.svg" alt="" width="28" height="28">Capital Sites</a>
     <nav class="head-meta">
       <span class="coords" id="ediTime">EDI · 55.95°N · 3.19°W</span>
       <a href="portal.html" data-hover style="opacity:.7">Client login</a>
